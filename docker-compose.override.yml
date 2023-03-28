@@ -1,0 +1,21 @@
+version: '3.3'
+
+services:
+  cvat_proxy:
+    environment:
+      CVAT_HOST: "*"
+    ports:
+      - "80:8080"
+services:
+  cvat:
+    environment:
+      CVAT_SHARE_URL: "Mounted from /mnt/share host directory"
+    volumes:
+      - cvat_share:/home/django/share:ro
+
+volumes:
+  cvat_share:
+    driver_opts:
+      type: none
+      device: /mnt/imagedata
+      o: bind   
